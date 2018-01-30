@@ -43,10 +43,10 @@ public class ClazzTest {
         List<Integer> param=new ArrayList<Integer>();
         param.add(1);
         param.add(2);
-        param.add(3);
+        param.add(4);
 
         List<Clazz> clazzs =clazzDao.selectInID(param);
-        System.out.println(clazzs);
+        System.out.println("输出"+clazzs);//
     }
 
 }
