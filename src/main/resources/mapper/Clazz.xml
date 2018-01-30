@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.mapper.ClazzDao">
+    <resultMap id="clazzMap" type="com.ssm.domain.Clazz">
+        <id property="id" column="cid"/>
+        <result property="name" column="cname"/>
+        <result property="infor" column="cinfor"/>
+    </resultMap>
+
+    <!--动态sql-->
+    <!--if,where条件查询-->
+    <select id="select"
+            resultMap="clazzMap"
+            parameterType="com.ssm.domain.Clazz">
+        SELECT * FROM clazz
+        <where>
+            <!--如果实体类中的id属性值大于0,则进行sql语句的拼接-->
+            <if test="id>0">
+                AND cid =#{id}
+            </if>
+            <!--字符串类型的字段需要进行双重判断-->
+            <if test="name !=null and name !=''">
+                AND cname =#{name}
+            </if>
+
+            <!--sql语句中的字符串拼接用${},通常用于Like语句或者order by等-->
+            <if test="infor !=null and infor !=''">
+                AND cinfor LIKE '%${infor}%'
+            </if>
+        </where>
+
+    </select>
+
+    <!--foreach批量操作标签
+    select * from Clazz where id in(1,2,3)
+    要传一个集合 所以是List
+    -->
+    <select id="selectInID"
+            resultMap="clazzMap"
+            parameterType="java.util.List">
+        SELECT * FROM clazz
+        <where>
+            <if test="list != null and list.size() >0">
+                <!--foreach标签
+                collection:要遍历的集合名称,如果是基本类型的集合,则直接使用list替代,
+                如果是pojo封装类中的某个集合成员变量,则取成员变量的名称
+                item:每次遍历生成的中间对象名称
+                open:遍历开始前拼接的字符串
+                close:遍历结束后拼接的字符串
+                separator:每次遍历过程中拼接的分隔符-->
+                <foreach collection="list"
+                         item="id"
+                         open="AND cid in ("
+                         close=")"
+                         separator=",">
+                    #{id}
+                </foreach>
+            </if>
+        </where>
+    </select>
+</mapper>
