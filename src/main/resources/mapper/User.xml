@@ -2,6 +2,50 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ssm.domain.User">
+<mapper namespace="com.ssm.mapper.UserDao">
+    <!--2-->
+   <sql id="userColumns">
+       u.id,
+       u.password,
+       u.sex,
+       u.birthday,
+       u.address,
+       u.username
+
+   </sql>
+    <sql id="ordersColumns">
+       o.id oid,
+       o.number,
+       o.total_price,
+       o.create_date
+    </sql>
+
+    <!--3-->
+    <resultMap id="userMap" type="com.ssm.domain.User">
+        <id property="id" column="id"/>
+        <result property="password" column="password"/>
+        <result property="birthday" column="birthday"/>
+        <result property="address" column="address"/>
+        <result property="username" column="username"/>
+        <result property="sex" column="sex"/>
+        <collection property="orderses" resultMap="ordersMap"/>
+    </resultMap>
+
+    <resultMap id="ordersMap" type="com.ssm.domain.Orders">
+        <id property="id" column="oid"/>
+        <result property="number" column="number"/>
+        <result property="totalPrice" column="total_price"/>
+        <result property="createDate" column="create_date"/>
+    </resultMap>
+
+    <!--1-->
+
+    <select id="selectUsers" resultMap="userMap">
+        SELECT
+        <include refid="userColumns"/>,
+        <include refid="ordersColumns"/>
+        FROM user u LEFT JOIN Orders o
+        ON u.id=o.user_id
+    </select>
 
 </mapper>

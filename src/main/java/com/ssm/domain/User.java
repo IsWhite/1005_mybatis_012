@@ -1,7 +1,9 @@
 package com.ssm.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by dllo on 18/1/30.
@@ -13,6 +15,9 @@ public class User implements Serializable {
     private String  sex;
     private Date birthday;
     private String address;
+
+    /*该用户对应的订单集合*/
+    private ArrayList<Orders> orderses;
 
     public User() {
     }
@@ -71,6 +76,14 @@ public class User implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public ArrayList<Orders> getOrderses() {
+        return orderses;
+    }
+
+    public void setOrderses(ArrayList<Orders> orderses) {
+        this.orderses = orderses;
     }
 
     @Override

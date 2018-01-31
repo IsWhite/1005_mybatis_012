@@ -1,0 +1,27 @@
+
+
+
+*****************
+3
+<mapper namespace="dao层接口">
+ <resultMap id="结果名(提供)" type="实体类路径">
+ 主键id标签
+  <resultMap id ="自定义" type=""
+    <id property="类id"  column="表id"
+        javaType="类类型"  dbcType="表类型"/>
+    <result property="类属性1"  column="表属性1"/>
+    <result property="类属性2"  column="表属性2"/>
+    <collection property="类中的集合属性" resultMap="对应另一张map结果集Map2"/>
+
+    <resultMap id="ordersMap" type="Map2">
+     ....
+     </resultMap>
+******************
+1
+<select id="方法(提供)" resultMap="主表map">
+ SELECT
+ <include refid="sql1片段"/>,
+ <include refid="sql2片段"/>
+
+
+</select>

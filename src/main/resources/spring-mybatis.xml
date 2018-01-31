@@ -26,7 +26,7 @@
         <property name="username" value="${username}"/>
         <property name="password" value="${password}"/>
     </bean>
-    <!--3,sql会话工厂类(两个属性参考和mapper连接):不同于ssh,ssh是Local 打Sql-->
+    <!--3,!!!sql会话工厂类(两个属性参考和mapper连接):不同于ssh,ssh是Local 打Sql-->
     <bean id="sessionFactory"
           class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
